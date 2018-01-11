@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="iot-msgbroker_main" target="1.8" />
+      <module name="iot-msgbroker_test" target="1.8" />
+      <module name="iotdsm-broker_main" target="1.8" />
+      <module name="iotdsm-broker_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
