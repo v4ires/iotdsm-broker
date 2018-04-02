@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/iotdsm-broker.iml" filepath="$PROJECT_DIR$/.idea/modules/iotdsm-broker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iotdsm-broker.iml" filepath="$PROJECT_DIR$/iotdsm-broker.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/iotdsm-broker_main.iml" filepath="$PROJECT_DIR$/.idea/modules/iotdsm-broker_main.iml" group="iotdsm-broker" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/iotdsm-broker_test.iml" filepath="$PROJECT_DIR$/.idea/modules/iotdsm-broker_test.iml" group="iotdsm-broker" />
     </modules>

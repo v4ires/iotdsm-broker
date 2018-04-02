@@ -12,6 +12,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="iotdsm-broker_main" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.vertx:vertx-mqtt:3.5.0.Beta1" level="project" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-core:3.5.0" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.0" level="project" />
@@ -20,6 +21,7 @@
     <orderEntry type="library" name="Gradle: io.netty:netty-handler:4.1.15.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-handler-proxy:4.1.15.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-resolver-dns:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-mqtt:4.1.8.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-codec-http:4.1.15.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-codec-socks:4.1.15.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-codec-dns:4.1.15.Final" level="project" />
