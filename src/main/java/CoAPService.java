@@ -5,12 +5,13 @@
  * @author Vinicius A. Barros
  * @author Sergio Baptista
  */
-public class Main {
+public class CoAPService {
+
+    public static void run(String[] args) {
+
+    }
 
     public static void main(String[] args) {
-        //Run all services
-        new HTTPService().run(args);
-        new MQQTService().run(args);
-        new CoAPService().run(args);
+        run(args);
     }
 }
