@@ -35,26 +35,26 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.2.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.vertx:vertx-mqtt:3.5.1" level="project" />
-    <orderEntry type="library" name="Gradle: io.vertx:vertx-core:3.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.vertx:vertx-mqtt:3.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.vertx:vertx-core:3.5.0" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.californium:californium-core:1.0.6" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.0" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-codec-mqtt:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http2:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-handler:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-handler-proxy:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-codec-socks:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-resolver-dns:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-codec-dns:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-codec:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-transport:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-buffer:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-resolver:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: io.netty:netty-common:4.1.19.Final" level="project" />
-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.3" level="project" />
-    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.3" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http2:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-handler:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-handler-proxy:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-resolver-dns:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-http:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-mqtt:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-socks:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec-dns:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-codec:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-transport:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-buffer:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-resolver:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: io.netty:netty-common:4.1.15.Final" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.californium:element-connector:1.0.6" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
