@@ -1,5 +1,6 @@
 package edu.usp.icmc.lasdpc.services;
 
+import edu.usp.icmc.lasdpc.util.PropertiesReader;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
 
@@ -17,10 +18,10 @@ public class HTTPService {
         Vertx vertx = Vertx.vertx();
         HttpClient client = vertx.createHttpClient();
 
-        int delay = 5000;
-        String host = "localhost";
-        String url = "/";
-        int port = 80;
+        int delay = Integer.parseInt(PropertiesReader.getValue("BROKER_REQUEST_DELAY"));
+        String host = PropertiesReader.getValue("BROKER_HOST");
+        String url = PropertiesReader.getValue("BROKER_REQUEST_URL");
+        int port = Integer.parseInt(PropertiesReader.getValue("BROKER_PORT"));
 
         System.out.println("HTTP Service Started");
 

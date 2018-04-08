@@ -1,8 +1,12 @@
 package edu.usp.icmc.lasdpc.services;
 
+import edu.usp.icmc.lasdpc.BrokerMain;
+import edu.usp.icmc.lasdpc.util.PropertiesReader;
 import io.vertx.core.Vertx;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * University of Sao Paulo
@@ -13,11 +17,13 @@ import io.vertx.mqtt.MqttServerOptions;
  */
 public class MQQTService {
 
+    private static final Logger log = LoggerFactory.getLogger(MQQTService.class);
+
     public static void run() {
 
         Vertx vertx = Vertx.vertx();
-        String host = "localhost";
-        int port = 1883;
+        String host = PropertiesReader.getValue("BROKER_HOST");
+        int port = Integer.parseInt(PropertiesReader.getValue("BROKER_PORT"));
 
         MqttServerOptions options = new MqttServerOptions()
                 .setPort(port)
@@ -28,16 +34,16 @@ public class MQQTService {
         server.endpointHandler(endpoint -> {
             endpoint.publishHandler(message -> {
                 //String msg = "Just received message on [" + message.topicName() + "] payload [" + message.payload() + "] with QoS [" + message.qosLevel() + "]";
-                System.out.println("MQQT Service: OK");
+                log.info("MQQT Service: OK");
                 //client.post(port, host, url);
             });
             endpoint.accept(false);
         });
         server.listen(ar -> {
             if (ar.succeeded()) {
-                System.out.println("MQTT Service Started (" + server.actualPort() + ")");
+                log.info("MQTT Service Started (" + server.actualPort() + ")");
             } else {
-                System.err.println("MQTT Service error on start" + ar.cause().getMessage());
+                log.error("MQTT Service error on start" + ar.cause().getMessage());
             }
         });
     }

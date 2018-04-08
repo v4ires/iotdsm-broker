@@ -56,7 +56,7 @@ public class BrokerMain {
                 new CoAPService().run();
                 break;
             default:
-                System.out.println("Invalid or unspecified communication protocol.");
+                log.info("Invalid or unspecified communication protocol.");
         }
     }
 
