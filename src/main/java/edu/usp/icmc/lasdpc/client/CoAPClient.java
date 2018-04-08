@@ -1,7 +1,9 @@
+package edu.usp.icmc.lasdpc.client;
+
 import org.eclipse.californium.core.CoapClient;
 import static org.eclipse.californium.core.coap.MediaTypeRegistry.APPLICATION_JSON;
 
-public class Client {
+public class CoAPClient {
 
     public static void main(String[] args) {
         String url = "coap://localhost:5683/sensor";

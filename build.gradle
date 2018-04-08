@@ -3,9 +3,10 @@ buildscript {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.3'
     }
 }
 
@@ -13,7 +14,7 @@ group 'iotdsm-broker'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'kotlin'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 sourceCompatibility = 1.8
 
@@ -27,11 +28,22 @@ dependencies {
     compile group: 'io.vertx', name: 'vertx-core', version: '3.5.0'
     compile group: 'io.vertx', name: 'vertx-mqtt', version: '3.5.0'
     compile group: 'org.eclipse.californium', name: 'californium-core', version: '1.0.6'
+
+    //Log Framework
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.25'
+
+    //Commons Library
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
 }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = "1.8"
-}
-compileTestKotlin {
-    kotlinOptions.jvmTarget = "1.8"
+jar {
+    manifest {
+        attributes "Main-Class": "edu.usp.icmc.lasdpc.BrokerMain"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }

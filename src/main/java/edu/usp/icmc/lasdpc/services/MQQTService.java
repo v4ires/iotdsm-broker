@@ -1,3 +1,5 @@
+package edu.usp.icmc.lasdpc.services;
+
 import io.vertx.core.Vertx;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
@@ -11,7 +13,7 @@ import io.vertx.mqtt.MqttServerOptions;
  */
 public class MQQTService {
 
-    public static void run(String[] args) {
+    public static void run() {
 
         Vertx vertx = Vertx.vertx();
         String host = "localhost";
@@ -41,6 +43,6 @@ public class MQQTService {
     }
 
     public static void main(String[] args) {
-        run(args);
+        run();
     }
 }

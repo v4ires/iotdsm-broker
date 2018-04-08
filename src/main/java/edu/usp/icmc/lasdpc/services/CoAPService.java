@@ -1,3 +1,5 @@
+package edu.usp.icmc.lasdpc.services;
+
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
 import org.eclipse.californium.core.network.CoapEndpoint;
@@ -21,7 +23,7 @@ public class CoAPService extends CoapServer {
 
     private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
 
-    public static void run(String [] args){
+    public static void run(){
         try {
             CoAPService server = new CoAPService();
             server.addEndpoints();
@@ -32,7 +34,7 @@ public class CoAPService extends CoapServer {
     }
 
     public static void main(String[] args) {
-       run(args);
+       run();
     }
 
     private void addEndpoints() {

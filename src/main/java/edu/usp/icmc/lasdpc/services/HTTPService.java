@@ -1,3 +1,5 @@
+package edu.usp.icmc.lasdpc.services;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpClient;
 
@@ -10,7 +12,7 @@ import io.vertx.core.http.HttpClient;
  */
 public class HTTPService {
 
-    public static void run(String[] args) {
+    public static void run() {
 
         Vertx vertx = Vertx.vertx();
         HttpClient client = vertx.createHttpClient();
@@ -33,5 +35,9 @@ public class HTTPService {
                 }
             });
         });
+    }
+
+    public static void main(String[] args) {
+        run();
     }
 }
