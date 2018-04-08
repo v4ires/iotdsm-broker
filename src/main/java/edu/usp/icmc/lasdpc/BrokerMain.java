@@ -1,9 +1,11 @@
 package edu.usp.icmc.lasdpc;
 
+import edu.usp.icmc.lasdpc.client.MQQTClient;
 import edu.usp.icmc.lasdpc.services.CoAPService;
 import edu.usp.icmc.lasdpc.services.HTTPService;
 import edu.usp.icmc.lasdpc.services.MQQTService;
 import edu.usp.icmc.lasdpc.util.PropertiesReader;
+import io.vertx.mqtt.MqttClient;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
@@ -36,6 +38,8 @@ public class BrokerMain {
         initOptions(args);
         initProperties();
         initBroker();
+        //teste//
+        new MQQTClient().run();
     }
 
     private static void initBroker() throws SocketException {
