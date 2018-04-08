@@ -50,8 +50,13 @@ public class BrokerMain {
             case "COAP":
                 new CoAPService().run();
                 break;
+            case "ALL":
+                new HTTPService().run();
+                new MQQTService().run();
+                new CoAPService().run();
+                break;
             default:
-                System.out.println("Protocolo inválido ou não especificado!");
+                System.out.println("Invalid or unspecified communication protocol.");
         }
     }
 
@@ -61,9 +66,9 @@ public class BrokerMain {
      * @param args Argumento de configurações passados pelo método ImportData
      */
     private static void initOptions(String[] args) {
-        options.addOption("c", "configuration", true, "Caminho para o arquivo de configuração [config.properties].");
-        options.addOption("h", "help", false, "Mostrar ajuda.");
-        options.addOption("v", "version", false, "Mostrar a versão do sistema.");
+        options.addOption("c", "configuration", true, "Path to the configuration file [config.properties].");
+        options.addOption("h", "help", false, "Show help.");
+        options.addOption("v", "version", false, "Show system version.");
 
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = null;
@@ -126,7 +131,7 @@ public class BrokerMain {
             log.info("BROKER_PORT: {}", PropertiesReader.getValue("BROKER_PORT"));
             log.info("--------------------------");
         } else {
-            log.error("Arquivo de configurações não encontrado no caminho \"{}\".", path);
+            log.error("Configuration file not found in path \"{}\".", path);
         }
     }
 }

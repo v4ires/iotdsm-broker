@@ -4,40 +4,35 @@
 
 ## TL;DR
 
-The IoTDSM is a project developed in the Laboratory of Distributed Systems and Concurrent Programming (LaSDPC) of the University of São Paulo (USP). This project aims to simplify the acquisition and storage of sensor data in the Internet of Things (IoT) context. For this, IoTDSM supports different storage strategies in SQL and NoSQL databases. Also, this tool provides a RESTful API for communication and data management of sensor networks.
-
-## Getting Started
-
-The IoTDSM aims to provide data from objects belonging to one or more intelligent environments in the context of IoT. This tool provides a simplified interface for connecting to different sensor network data sources, providing support for different types of databases, whether SQL or NoSQL.
+The **I**nternet **o**f **T**hings **D**ata as a **S**ervice **M**odule **B**roker (IoTDSM-B) is a project developed in the Laboratory of Distributed Systems and Concurrent Programming (LaSDPC) of the University of São Paulo (USP). This tool aims to simplify the acquisition and communication of sensor data in the Internet of Things (IoT). For this, this tool supports different communication strategies, such as HTTP, MQQT and CoAP.
 
 ### Installing
 
-To install IoTDSM-B, merely compile the project with the command:
+To install IoTDSM-B, compile the project with the command:
 
 ```bash
 #Compile the project with all dependencies disregarding the execution of tests
 ~$ gradle build shadownJar
 ```
 
-This command will generate a .jar file with all the dependencies required to run the project.
-The generated .jar file is located in the directory:
+This command will generate a jar file with all dependencies required to execute the project. The generated jar is located in the directory path:
 
 ```bash
-#File: iotdsm-broker-all-1.0.0.jar
+#File: iotdsm-broker-all-1.0.0.jar and iotdsm-broker-1.0.0.jar
 ~$ build/libs
-```
-
-To run the IoTDSM-B, just run the command:
-
-```bash
-#Executes IoTDSM-B
-~$ java -jar iotdsm-broker-all-1.0.0.jar <args>
 ```
 
 If you only need to download the dependencies, execute the command:
 
 ```bash
 ~$ gradle build --refresh-dependencies
+```
+
+To execute the IoTDSM-B, just run the command:
+
+```bash
+#Executes IoTDSM-B
+~$ java -jar iotdsm-broker-all-1.0.0.jar <args>
 ```
 
 ## Running Tests
@@ -51,9 +46,7 @@ To run the unit tests just run the command:
 
 ## Running and Deployment
 
-The IoTDSM provides an input interface for different configuration parameters.
-These parameters are passed through system-defined *flags*.
-To view the available parameters, execute the command:
+The IoTDSM-B provides an input interface for different configuration parameters. These parameters are passed through system-defined *flags*. To view the available parameters, execute the command:
 
 ```bash
 #Shows the options parameters available
@@ -69,13 +62,12 @@ The available parameters are as follows:
  -lf,--logfile <arg>        Log4J Configuration File [log4j.properties].
  -v,--log-level <arg>       Changes the log level [OFF, TRACE, DEBUG, WARN, ERROR, FATAL, ALL].
 ```
-In addition to the default parameters other settings can be defined by means of a configuration file.
-This file specifies the IoTDSM Database and Web Server configuration.
-The table of available arguments is shown below.
 
-**Table 1**: Web Server input variables.
+In addition, other settings can be defined by means of a configuration file. This file specifies the IoTDSM-B configuration enviroment. The Table 1, show the available arguments in the configuration file (config.properties).
 
 <center>
+
+**Table 1**: Web Server input variables.
 
 |          Variable         |                   Description                |
 |:-------------------------:|:--------------------------------------------:|
