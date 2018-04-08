@@ -7,7 +7,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.mqtt.MqttClient;
 
-public class MQQTClient extends AbstractVerticle {
+public class MQTTClient extends AbstractVerticle {
 
     private static final String MQTT_TOPIC = "/topico/teste";
     private static final String MQTT_MESSAGE = "Alo 123 Testando";

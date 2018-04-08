@@ -1,11 +1,9 @@
 package edu.usp.icmc.lasdpc;
 
-import edu.usp.icmc.lasdpc.client.MQQTClient;
 import edu.usp.icmc.lasdpc.services.CoAPService;
 import edu.usp.icmc.lasdpc.services.HTTPService;
 import edu.usp.icmc.lasdpc.services.MQQTService;
 import edu.usp.icmc.lasdpc.util.PropertiesReader;
-import io.vertx.mqtt.MqttClient;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
@@ -30,7 +28,7 @@ public class BrokerMain {
 
     private static String _log4jFile = "log4j.properties";
     private static String _logLevel = "ALL";
-    private static String _configFileName = "http.properties";
+    private static String _configFileName = "mqtt.properties";
     private static Options options = new Options();
     private static final Logger log = LoggerFactory.getLogger(BrokerMain.class);
 
@@ -38,8 +36,6 @@ public class BrokerMain {
         initOptions(args);
         initProperties();
         initBroker();
-        //teste//
-        new MQQTClient().run();
     }
 
     private static void initBroker() throws SocketException {
@@ -48,7 +44,7 @@ public class BrokerMain {
             case "HTTP":
                 new HTTPService().run();
                 break;
-            case "MQQT":
+            case "MQTT":
                 new MQQTService().run();
                 break;
             case "COAP":
