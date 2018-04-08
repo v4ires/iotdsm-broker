@@ -12,7 +12,7 @@ To install IoTDSM-B, compile the project with the command:
 
 ```bash
 #Compile the project with all dependencies disregarding the execution of tests
-~$ gradle build shadownJar
+~$ gradle build shadowJar
 ```
 
 This command will generate a jar file with all dependencies required to execute the project. The generated jar is located in the directory path:
