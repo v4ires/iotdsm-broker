@@ -22,24 +22,29 @@ public class HTTPService {
         Vertx vertx = Vertx.vertx();
         HttpClient client = vertx.createHttpClient();
 
-        int delay = Integer.parseInt(PropertiesReader.getValue("BROKER_REQUEST_DELAY"));
-        String host = PropertiesReader.getValue("BROKER_HOST");
-        String url = PropertiesReader.getValue("BROKER_REQUEST_URL");
-        int port = Integer.parseInt(PropertiesReader.getValue("BROKER_PORT"));
+        int number_of_clients = Integer.parseInt(PropertiesReader.getValue("BROKER_NUM_CLIENT"));
+
+        String[] delay = PropertiesReader.getValue("BROKER_REQUEST_DELAY").split(",");
+        String[] host = PropertiesReader.getValue("BROKER_HOST").split(",");
+        String[] url = PropertiesReader.getValue("BROKER_REQUEST_URL").split(",");
+        String[] port = PropertiesReader.getValue("BROKER_PORT").split(",");
 
         log.info("HTTP Service Started");
 
-        vertx.setPeriodic(delay, id -> {
-            client.getNow(port, host, url, response -> {
-                int responseCode = response.statusCode();
-                if (responseCode == 200) {
-                    response.bodyHandler(bufferResponse -> {
-                        log.info("HTTP Service: " + responseCode);
-                        //client.post(port, host, url);
-                    });
-                }
+        for (int i = 0; i < number_of_clients; i++) {
+            int curr_i = i;
+            vertx.setPeriodic(Integer.parseInt(delay[curr_i]), id -> {
+                client.getNow(Integer.parseInt(port[curr_i]), host[curr_i], url[curr_i], response -> {
+                    int responseCode = response.statusCode();
+                    if (responseCode == 200) {
+                        response.bodyHandler(bufferResponse -> {
+                            log.info("HTTP Service: " + responseCode + " Host: " + host[curr_i]);
+                            //client.post(port, host, url);
+                        });
+                    }
+                });
             });
-        });
+        }
     }
 
     public static void main(String[] args) {
