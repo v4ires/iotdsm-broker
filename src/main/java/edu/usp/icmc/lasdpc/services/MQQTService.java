@@ -22,7 +22,7 @@ public class MQQTService {
     public static void run() {
 
         Vertx vertx = Vertx.vertx();
-        String host = PropertiesReader.getValue("BROKER_HOST");
+        String host = PropertiesReader.getValue("BROKER_HOSTNAME");
         int port = Integer.parseInt(PropertiesReader.getValue("BROKER_PORT"));
 
         MqttServerOptions options = new MqttServerOptions()

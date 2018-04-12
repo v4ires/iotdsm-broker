@@ -2,6 +2,7 @@ package edu.usp.icmc.lasdpc.services;
 
 import org.eclipse.californium.core.CoapResource;
 import org.eclipse.californium.core.CoapServer;
+import org.eclipse.californium.core.coap.CoAP;
 import org.eclipse.californium.core.network.CoapEndpoint;
 import org.eclipse.californium.core.network.EndpointManager;
 import org.eclipse.californium.core.network.config.NetworkConfig;
@@ -67,8 +68,10 @@ public class CoAPService extends CoapServer {
         @Override
         public void handlePOST(CoapExchange exchange) {
             String msg = exchange.getRequestText();
-            System.out.println(msg);
-            exchange.accept();
+            log.info("CoAP Service: " + exchange.getRequestCode() + " Host: " + "localhost");
+            //System.out.println(msg);
+            //client.post(port, host, url);
+            exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
         }
     }
 }
