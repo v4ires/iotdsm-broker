@@ -42,7 +42,7 @@ public class BrokerMain {
         String brokerProtocol = PropertiesReader.getValue("BROKER_PROTOCOL");
         switch (brokerProtocol) {
             case "HTTP":
-                new HTTPService().run();
+                new HTTPService().runHttpServer();
                 break;
             case "MQTT":
                 new MQQTService().run();
@@ -51,7 +51,7 @@ public class BrokerMain {
                 new CoAPService().run();
                 break;
             case "ALL":
-                new HTTPService().run();
+                new HTTPService().runHttpServer();
                 new MQQTService().run();
                 new CoAPService().run();
                 break;
@@ -127,7 +127,7 @@ public class BrokerMain {
             log.info("--------------------------");
             log.info("Config Properties File");
             log.info("BROKER_PROTOCOL: {}", PropertiesReader.getValue("BROKER_PROTOCOL"));
-            log.info("BROKER_HOST: {}", PropertiesReader.getValue("BROKER_HOST"));
+            log.info("BROKER_HOSTNAME: {}", PropertiesReader.getValue("BROKER_HOSTNAME"));
             log.info("BROKER_PORT: {}", PropertiesReader.getValue("BROKER_PORT"));
             log.info("--------------------------");
         } else {
