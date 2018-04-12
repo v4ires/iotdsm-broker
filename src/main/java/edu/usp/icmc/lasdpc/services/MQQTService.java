@@ -2,6 +2,7 @@ package edu.usp.icmc.lasdpc.services;
 
 import edu.usp.icmc.lasdpc.BrokerMain;
 import edu.usp.icmc.lasdpc.util.PropertiesReader;
+import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.Vertx;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
@@ -36,6 +37,11 @@ public class MQQTService {
                 //String msg = "Just received message on [" + message.topicName() + "] payload [" + message.payload() + "] with QoS [" + message.qosLevel() + "]";
                 log.info("MQQT Service: OK");
                 //client.post(port, host, url);
+                if (message.qosLevel() == MqttQoS.AT_LEAST_ONCE) {
+                    endpoint.publishAcknowledge(message.messageId());
+                } else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
+                    endpoint.publishReceived(message.messageId());
+                }
             });
             endpoint.accept(false);
         });
