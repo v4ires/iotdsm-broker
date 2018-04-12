@@ -56,7 +56,7 @@ public class HTTPService {
         String delay = PropertiesReader.getValue("BROKER_REQUEST_DELAY");
         String host = PropertiesReader.getValue("BROKER_HOSTNAME");
         String url = PropertiesReader.getValue("BROKER_REQUEST_URL");
-        String port = PropertiesReader.getValue("BROKER_PORT");
+        int port = Integer.parseInt(PropertiesReader.getValue("BROKER_PORT"));
 
         log.info("HTTP Service Started (" + port + ")");
 
@@ -74,7 +74,7 @@ public class HTTPService {
             ctx.response().end();
         });
 
-        server.requestHandler(router::accept).listen(8081);
+        server.requestHandler(router::accept).listen(port);
     }
 
     public static void main(String[] args) {

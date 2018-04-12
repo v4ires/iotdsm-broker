@@ -61,11 +61,6 @@ public class CoAPService extends CoapServer {
         }
 
         @Override
-        public void handleGET(CoapExchange exchange) {
-            exchange.respond("Hello World!");
-        }
-
-        @Override
         public void handlePOST(CoapExchange exchange) {
             String msg = exchange.getRequestText();
             log.info("CoAP Service: " + exchange.getRequestCode() + " Host: " + "localhost");
