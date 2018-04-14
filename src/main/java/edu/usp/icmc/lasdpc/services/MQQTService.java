@@ -1,9 +1,9 @@
 package edu.usp.icmc.lasdpc.services;
 
-import edu.usp.icmc.lasdpc.BrokerMain;
 import edu.usp.icmc.lasdpc.util.PropertiesReader;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.Vertx;
+import io.vertx.ext.web.client.WebClient;
 import io.vertx.mqtt.MqttServer;
 import io.vertx.mqtt.MqttServerOptions;
 import org.slf4j.Logger;
@@ -23,8 +23,16 @@ public class MQQTService {
     public static void run() {
 
         Vertx vertx = Vertx.vertx();
+        WebClient client = WebClient.create(vertx);
+
+        //Broker Properties
         String host = PropertiesReader.getValue("BROKER_HOSTNAME");
         int port = Integer.parseInt(PropertiesReader.getValue("BROKER_PORT"));
+
+        //Service Properties
+        String service_hostname = PropertiesReader.getValue("SERVICE_HOSTNAME");
+        int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
+        String service_path = PropertiesReader.getValue("SERVICE_PATH");
 
         MqttServerOptions options = new MqttServerOptions()
                 .setPort(port)
@@ -34,14 +42,17 @@ public class MQQTService {
 
         server.endpointHandler(endpoint -> {
             endpoint.publishHandler(message -> {
-                //String msg = "Just received message on [" + message.topicName() + "] payload [" + message.payload() + "] with QoS [" + message.qosLevel() + "]";
-                log.info("MQQT Service: OK");
-                //client.post(port, host, url);
-                if (message.qosLevel() == MqttQoS.AT_LEAST_ONCE) {
-                    endpoint.publishAcknowledge(message.messageId());
-                } else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
-                    endpoint.publishReceived(message.messageId());
-                }
+                String msg = message.payload().toString();
+                client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
+                    if (ar.succeeded()) {
+                        if (message.qosLevel() == MqttQoS.AT_LEAST_ONCE) {
+                            endpoint.publishAcknowledge(message.messageId());
+                        } else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
+                            endpoint.publishReceived(message.messageId());
+                        }
+                        log.info("MQQT Service: OK");
+                    }
+                });
             });
             endpoint.accept(false);
         });
