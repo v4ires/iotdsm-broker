@@ -27,13 +27,21 @@ public class HTTPService {
 
         Vertx vertx = Vertx.vertx();
         HttpClient client = vertx.createHttpClient();
+        WebClient webClient = WebClient.create(vertx);
 
         int number_of_clients = Integer.parseInt(PropertiesReader.getValue("BROKER_NUM_CLIENT"));
 
+        //Broker Properties
         String[] delay = PropertiesReader.getValue("BROKER_REQUEST_DELAY").split(",");
         String[] host = PropertiesReader.getValue("BROKER_HOSTNAME").split(",");
         String[] url = PropertiesReader.getValue("BROKER_REQUEST_URL").split(",");
         String[] port = PropertiesReader.getValue("BROKER_PORT").split(",");
+
+        //Service Properties
+        String service_hostname = PropertiesReader.getValue("SERVICE_HOSTNAME");
+        int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
+        String service_path = PropertiesReader.getValue("SERVICE_PATH");
+
 
         log.info("HTTP Service Started");
 
@@ -43,8 +51,12 @@ public class HTTPService {
                     int responseCode = response.statusCode();
                     if (responseCode == 200) {
                         response.bodyHandler(bufferResponse -> {
-                            log.info("HTTP Service: " + responseCode + " Host: " + host[i]);
-                            //client.post(port, host, url);
+                            System.out.println(bufferResponse.toString());
+                            webClient.post(service_port,  service_hostname, service_path).sendJson(bufferResponse.toString(), ar ->{
+                                if(ar.succeeded()){
+                                    log.info("HTTP Service: " + responseCode + " Host: " + host[i]);
+                                }
+                            });
                         });
                     }
                 });
@@ -76,7 +88,7 @@ public class HTTPService {
             int status = ctx.response().getStatusCode();
             String msg = ctx.getBodyAsString();
             log.info("HTTP Service: " + status + " Host: " + broker_hostname);
-            client.post(service_port, service_hostname, service_path).sendJson(msg, ar ->{
+            client.post(service_port,  service_hostname, service_path).sendJson(msg, ar ->{
                 if(ar.succeeded()){
                     ctx.response().end();
                 }
