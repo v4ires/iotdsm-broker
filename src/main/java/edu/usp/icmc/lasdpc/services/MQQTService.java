@@ -43,16 +43,29 @@ public class MQQTService {
         server.endpointHandler(endpoint -> {
             endpoint.publishHandler(message -> {
                 String msg = message.payload().toString();
-                client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
+                /*System.out.println(msg);
+                System.out.println("Just received message on [" + message.topicName() + "] payload [" +
+                        message.payload() + "] with QoS [" +
+                        message.qosLevel() + "]");
+                */
+                if(message.qosLevel() == MqttQoS.AT_LEAST_ONCE){
+                    endpoint.publishAcknowledge(message.messageId());
+                }
+                else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
+                    endpoint.publishAcknowledge(message.messageId());
+                    endpoint.publishReceived(message.messageId());
+                }
+                log.info("MQQT Service: OK");
+
+                /*client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
                     if (ar.succeeded()) {
                         if (message.qosLevel() == MqttQoS.AT_LEAST_ONCE) {
                             endpoint.publishAcknowledge(message.messageId());
                         } else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
                             endpoint.publishReceived(message.messageId());
                         }
-                        log.info("MQQT Service: OK");
                     }
-                });
+                });*/
             });
             endpoint.accept(false);
         });
