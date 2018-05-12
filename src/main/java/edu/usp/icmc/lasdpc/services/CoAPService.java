@@ -18,6 +18,9 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 
+import java.io.IOException;
+
+
 /**
  * University of Sao Paulo
  * IoT Repository Module
@@ -35,6 +38,7 @@ public class CoAPService extends CoapServer {
             CoAPService server = new CoAPService();
             server.addEndpoints();
             server.start();
+
         } catch (SocketException e) {
             log.error("Failed to initialize server: " + e.getMessage());
         }
@@ -60,15 +64,15 @@ public class CoAPService extends CoapServer {
     class CoapServerResource extends CoapResource {
 
         public CoapServerResource() {
-            super("sensor");
+            super("temperatura");
         }
 
         @Override
         public void handlePOST(CoapExchange exchange) {
+            float temp = 0;
             Vertx vertx = Vertx.vertx();
             WebClient client = WebClient.create(vertx);
             String msg = exchange.getRequestText();
-
             //Service Properties
             String service_hostname = PropertiesReader.getValue("SERVICE_HOSTNAME");
             int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
@@ -80,6 +84,17 @@ public class CoAPService extends CoapServer {
                     exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
                 }
             });
+            //System.out.println(msg);
+            temp = Float.parseFloat(msg);
+            System.out.println(temp);
+            if(temp > 33){
+                try {
+                    Runtime.getRuntime().exec("/home/pinobex/Tcc/desliga.sh");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 }

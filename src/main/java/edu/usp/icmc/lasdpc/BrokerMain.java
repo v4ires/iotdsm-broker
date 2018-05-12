@@ -28,7 +28,7 @@ public class BrokerMain {
 
     private static String _log4jFile = "log4j.properties";
     private static String _logLevel = "ALL";
-    private static String _configFileName = "mqtt.properties";
+    private static String _configFileName = "coap.properties";
     private static Options options = new Options();
     private static final Logger log = LoggerFactory.getLogger(BrokerMain.class);
 
