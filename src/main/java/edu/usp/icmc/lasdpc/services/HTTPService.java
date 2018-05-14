@@ -88,11 +88,12 @@ public class HTTPService {
             int status = ctx.response().getStatusCode();
             String msg = ctx.getBodyAsString();
             log.info("HTTP Service: " + status + " Host: " + broker_hostname);
-            client.post(service_port,  service_hostname, service_path).sendJson(msg, ar ->{
+            /*client.post(service_port,  service_hostname, service_path).sendJson(msg, ar ->{
                 if(ar.succeeded()){
                     ctx.response().end();
                 }
-            });
+            });*/
+            System.out.println(msg);
         });
         server.requestHandler(router::accept).listen(broker_port);
     }
