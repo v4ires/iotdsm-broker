@@ -78,12 +78,18 @@ public class CoAPService extends CoapServer {
             int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
             String service_path = PropertiesReader.getValue("SERVICE_PATH");
 
-            client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
+            exchange.accept();
+            exchange.respond(CoAP.ResponseCode.VALID);
+
+            //exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
+            //exchange.respond(CoAP.ResponseCode.CONTENT, "Alo");
+            /*client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
                 if (ar.succeeded()) {
                     log.info("CoAP Service: " + exchange.getRequestCode() + " Host: " + "localhost");
                     exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
                 }
-            });
+            });*/
+
             //System.out.println(msg);
             temp = Float.parseFloat(msg);
             System.out.println(temp);
