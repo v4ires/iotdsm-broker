@@ -78,7 +78,7 @@ public class CoAPService extends CoapServer {
             int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
             String service_path = PropertiesReader.getValue("SERVICE_PATH");
 
-            exchange.accept();
+            //exchange.accept();
             exchange.respond(CoAP.ResponseCode.VALID);
 
             //exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
@@ -90,16 +90,17 @@ public class CoAPService extends CoapServer {
                 }
             });*/
 
-            //System.out.println(msg);
-            temp = Float.parseFloat(msg);
-            System.out.println(temp);
-            if(temp > 33){
+            System.out.println(msg);
+            //temp = Float.parseFloat(msg);
+            //System.out.println(temp);
+
+            /*if(temp > 33){
                 try {
                     Runtime.getRuntime().exec("/home/pinobex/Tcc/desliga.sh");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
 
         }
     }
