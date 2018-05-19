@@ -36,9 +36,10 @@ public class MQQTService {
 
         MqttServerOptions options = new MqttServerOptions()
                 .setPort(port)
-                .setHost(host);
+                .setHost("localhost");
+                //.setHost(host);
 
-        MqttServer server = MqttServer.create(vertx, options);
+        MqttServer server = MqttServer.create(vertx);
 
         server.endpointHandler(endpoint -> {
             endpoint.publishHandler(message -> {
@@ -52,8 +53,7 @@ public class MQQTService {
                     endpoint.publishAcknowledge(message.messageId());
                 }
                 else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
-                    endpoint.publishAcknowledge(message.messageId());
-                    endpoint.publishReceived(message.messageId());
+                    endpoint.publishRelease(message.messageId());
                 }
                 log.info("MQQT Service: OK");
 
@@ -67,11 +67,12 @@ public class MQQTService {
                     }
                 });*/
             });
-            endpoint.accept(false);
+            endpoint.accept(true);
         });
         server.listen(ar -> {
             if (ar.succeeded()) {
                 log.info("MQTT Service Started (" + server.actualPort() + ")");
+
             } else {
                 log.error("MQTT Service error on start" + ar.cause().getMessage());
             }
