@@ -34,10 +34,10 @@ public class MQQTService {
         int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
         String service_path = PropertiesReader.getValue("SERVICE_PATH");
 
-        MqttServerOptions options = new MqttServerOptions()
+        /*MqttServerOptions options = new MqttServerOptions()
                 .setPort(port)
                 .setHost("localhost");
-                //.setHost(host);
+                .setHost(host);*/
 
         MqttServer server = MqttServer.create(vertx);
 
