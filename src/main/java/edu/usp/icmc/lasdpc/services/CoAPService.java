@@ -64,7 +64,7 @@ public class CoAPService extends CoapServer {
     class CoapServerResource extends CoapResource {
 
         public CoapServerResource() {
-            super("temperatura");
+            super("sensor");
         }
 
         @Override
@@ -83,14 +83,13 @@ public class CoAPService extends CoapServer {
 
             //exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
             //exchange.respond(CoAP.ResponseCode.CONTENT, "Alo");
-            /*client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
+            client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
                 if (ar.succeeded()) {
-                    log.info("CoAP Service: " + exchange.getRequestCode() + " Host: " + "localhost");
-                    exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
+                    log.info("MSG CoAP: OK");
+                }else{
+                    log.info("Errow");
                 }
-            });*/
-
-            System.out.println(msg);
+            });
             //temp = Float.parseFloat(msg);
             //System.out.println(temp);
 
