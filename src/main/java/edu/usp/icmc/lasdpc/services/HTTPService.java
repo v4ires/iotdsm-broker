@@ -96,7 +96,6 @@ public class HTTPService {
                 }
                 ctx.response().end();
             });
-            System.out.println(msg);
         });
         server.requestHandler(router::accept).listen(broker_port);
     }
