@@ -52,6 +52,7 @@ public class CoAPClient {
                 atomicInteger.incrementAndGet();
                 if (atomicInteger.get() > Integer.parseInt(args[0])) {
                     bw.close();
+                    System.out.println("Terminou experimento");
                     System.exit(0);
                 }
                 bw.write("" + (System.nanoTime() - t0));
@@ -60,7 +61,6 @@ public class CoAPClient {
                 e.printStackTrace();
             }
         }, 1, 100L, TimeUnit.MILLISECONDS);
-        System.out.println("Terminou");
     }
 
     private static void enableLog4J(String logLevel) {
