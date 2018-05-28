@@ -9,22 +9,23 @@ import io.vertx.mqtt.MqttClient;
 
 public class MQTTClient extends AbstractVerticle {
 
-    private static final String MQTT_TOPIC = "/topico/teste";
+    private static final String MQTT_TOPIC = "/sensor";
     private static final String MQTT_MESSAGE = "Alo 123 Testando";
     private static final String BROKER_HOST = "localhost";
     private static final int BROKER_PORT = 1883;
 
     public static void run() {
-        MqttClient mqttClient = MqttClient.create(Vertx.vertx());
+        Vertx vertx = Vertx.vertx();
+        MqttClient mqttClient = MqttClient.create(vertx);
         mqttClient.connect(BROKER_PORT, BROKER_HOST, ch -> {
             if (ch.succeeded()) {
                 mqttClient.publish(
                         MQTT_TOPIC,
                         Buffer.buffer(MQTT_MESSAGE),
-                        MqttQoS.AT_MOST_ONCE,
+                        MqttQoS.AT_LEAST_ONCE,
                         false,
                         false,
-                        s -> mqttClient.disconnect());
+                        s -> vertx.close());
             } else {
                 System.out.println("Failed to connect to a server");
                 System.out.println(ch.cause());
