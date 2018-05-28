@@ -20,13 +20,13 @@ public class MQTTClient extends AbstractVerticle {
 
     private static final String MQTT_TOPIC = "/sensor";
     private static final String MQTT_MESSAGE = "Alo 123 Testando";
-    private static final String BROKER_HOST = "localhost";
+    private static final String[] BROKER_HOST = {"localhost", "tpnode08"};
     private static final int BROKER_PORT = 1883;
 
     public static void run(String msg) {
         Vertx vertx = Vertx.vertx();
         MqttClient mqttClient = MqttClient.create(vertx);
-        mqttClient.connect(BROKER_PORT, BROKER_HOST, ch -> {
+        mqttClient.connect(BROKER_PORT, BROKER_HOST[0], ch -> {
             if (ch.succeeded()) {
                 mqttClient.publish(
                         MQTT_TOPIC,
@@ -43,15 +43,17 @@ public class MQTTClient extends AbstractVerticle {
     }
 
     public static void main(String[] args) throws IOException {
-        ScheduledExecutorService execService = Executors.newScheduledThreadPool(10);
+        String msg = "{\"id\":\"1\",\"name\":\"dht11-0\",\"lat\":\"-22.0039007\",\"lng\":\"-47.891811\",\"name\":\"temperature sensor\",\"create_time\":\"2018-02-12 09:29:05.441\",\"description\":\"the DHT11 is a temperature and humidity sensor\",\"sensor_source\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"descrition\":\"sensor network of temperature and humidity\",\"name\":\"dht11-sensor\"},\"sensor_measure\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"value\":\"36.4\",\"sensor_measure_type\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"unit\":\"C\"}}}";
+        int core = Runtime.getRuntime().availableProcessors();
+        ScheduledExecutorService execService = Executors.newScheduledThreadPool(core);
         AtomicInteger atomicInteger = new AtomicInteger(0);
         BufferedWriter bw = new BufferedWriter(new FileWriter(new File("mqtt.log")));
         execService.scheduleAtFixedRate(() -> {
             try {
                 Long t0 = System.nanoTime();
-                run("Hello World");
+                run(msg);
                 atomicInteger.incrementAndGet();
-                if (atomicInteger.get() == 10) {
+                if (atomicInteger.get() == 1000) {
                     bw.close();
                     System.exit(0);
                 }

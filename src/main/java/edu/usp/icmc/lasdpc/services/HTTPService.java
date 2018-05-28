@@ -87,10 +87,9 @@ public class HTTPService {
         router.post("/sensor").handler(ctx -> {
             int status = ctx.response().getStatusCode();
             String msg = ctx.getBodyAsString();
-            log.info("HTTP Service: " + status + " Host: " + broker_hostname);
             client.post(service_port,  service_hostname, service_path).sendJson(msg, ar ->{
                 if(ar.succeeded()){
-                    log.info("MSG HTTP: OK");
+                    log.info("HTTP Service: " + status + " Host: " + broker_hostname);
                 }else{
                     log.info("Errow");
                 }

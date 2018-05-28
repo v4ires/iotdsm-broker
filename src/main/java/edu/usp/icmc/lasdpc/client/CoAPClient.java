@@ -16,21 +16,23 @@ import static org.eclipse.californium.core.coap.MediaTypeRegistry.APPLICATION_JS
 public class CoAPClient {
 
     public static void run(String msg) {
-        String url = "coap://localhost:5683/sensor";
-        CoapClient coapClient = new CoapClient(url);
+        String url [] = {"coap://localhost:5683/sensor", "coap://tpnode08:5683/sensor"};
+        CoapClient coapClient = new CoapClient(url[0]);
         coapClient.post(msg, APPLICATION_JSON);
     }
 
     public static void main(String[] args) throws IOException {
-        ScheduledExecutorService execService = Executors.newScheduledThreadPool(10);
+        String msg = "{\"id\":\"1\",\"name\":\"dht11-0\",\"lat\":\"-22.0039007\",\"lng\":\"-47.891811\",\"name\":\"temperature sensor\",\"create_time\":\"2018-02-12 09:29:05.441\",\"description\":\"the DHT11 is a temperature and humidity sensor\",\"sensor_source\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"descrition\":\"sensor network of temperature and humidity\",\"name\":\"dht11-sensor\"},\"sensor_measure\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"value\":\"36.4\",\"sensor_measure_type\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"unit\":\"C\"}}}";
+        int core = Runtime.getRuntime().availableProcessors();
+        ScheduledExecutorService execService = Executors.newScheduledThreadPool(core);
         AtomicInteger atomicInteger = new AtomicInteger(0);
         BufferedWriter bw = new BufferedWriter(new FileWriter(new File("coap.log")));
         execService.scheduleAtFixedRate(() -> {
             try {
                 Long t0 = System.nanoTime();
-                run("Hello World");
+                run(msg);
                 atomicInteger.incrementAndGet();
-                if (atomicInteger.get() == 10) {
+                if (atomicInteger.get() == Integer.parseInt(args[0])) {
                     bw.close();
                     System.exit(0);
                 }
