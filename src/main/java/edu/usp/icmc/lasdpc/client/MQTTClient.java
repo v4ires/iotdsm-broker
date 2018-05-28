@@ -20,7 +20,7 @@ public class MQTTClient extends AbstractVerticle {
 
     private static final String MQTT_TOPIC = "/sensor";
     private static final String MQTT_MESSAGE = "Alo 123 Testando";
-    private static final String[] BROKER_HOST = {"localhost", "tpnode08"};
+    private static final String[] BROKER_HOST = {"localhost", "tpnode10"};
     private static final int BROKER_PORT = 1883;
 
     public static void run(String msg, int host) {

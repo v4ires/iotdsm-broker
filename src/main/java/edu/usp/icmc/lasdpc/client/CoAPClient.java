@@ -16,7 +16,7 @@ import static org.eclipse.californium.core.coap.MediaTypeRegistry.APPLICATION_JS
 public class CoAPClient {
 
     public static void run(String msg, int host) {
-        String url [] = {"coap://localhost:5683/sensor", "coap://tpnode08:5683/sensor"};
+        String url [] = {"coap://localhost:5683/sensor", "coap://tpnode10:5683/sensor"};
         CoapClient coapClient = new CoapClient(url[host]);
         coapClient.post(msg, APPLICATION_JSON);
     }

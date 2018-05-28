@@ -18,7 +18,7 @@ public class HTTPClient {
         Vertx vertx = Vertx.vertx();
         WebClient client = WebClient.create(vertx);
 
-        String[] service_hostname = {"localhost", "tpnode08"};
+        String[] service_hostname = {"localhost", "tpnode10"};
         int service_port = 8082;
         String service_path = "/sensor";
 
