@@ -50,7 +50,6 @@ public class MQQTService {
                 else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
                     endpoint.publishRelease(message.messageId());
                 }
-                log.info("MQQT Service: OK");
 
                 client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
                     if (ar.succeeded()) {
@@ -59,7 +58,6 @@ public class MQQTService {
                         } else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
                             endpoint.publishReceived(message.messageId());
                         }
-                        log.info("MSG MQTT: OK");
                     }else{
                         log.info("ERROW");
                     }
