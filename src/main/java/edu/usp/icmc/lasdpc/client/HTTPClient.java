@@ -22,7 +22,7 @@ public class HTTPClient {
         int service_port = 8082;
         String service_path = "/sensor";
 
-        client.post(service_port,  service_hostname[0], service_path).sendJson(msg, ar ->{
+        client.post(service_port,  service_hostname[host], service_path).sendJson(msg, ar ->{
             if(ar.succeeded()){
                 System.out.println("Foi");
             }else {

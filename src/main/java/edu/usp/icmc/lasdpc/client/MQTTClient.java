@@ -26,7 +26,7 @@ public class MQTTClient extends AbstractVerticle {
     public static void run(String msg, int host) {
         Vertx vertx = Vertx.vertx();
         MqttClient mqttClient = MqttClient.create(vertx);
-        mqttClient.connect(BROKER_PORT, BROKER_HOST[0], ch -> {
+        mqttClient.connect(BROKER_PORT, BROKER_HOST[host], ch -> {
             if (ch.succeeded()) {
                 mqttClient.publish(
                         MQTT_TOPIC,
