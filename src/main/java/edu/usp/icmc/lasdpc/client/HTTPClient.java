@@ -71,7 +71,7 @@ public class HTTPClient {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }, 1, 100L, TimeUnit.MILLISECONDS);
+        }, 1, 300L, TimeUnit.MILLISECONDS);
     }
 
     private static void enableLog4J(String logLevel) {
