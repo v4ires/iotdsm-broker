@@ -32,6 +32,8 @@ public class CoAPService extends CoapServer {
 
     private static final Logger log = LoggerFactory.getLogger(CoapServer.class);
     private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
+    private static Vertx vertx = Vertx.vertx();
+    private static WebClient client = WebClient.create(vertx);
 
     public static void run() {
         try {
@@ -70,8 +72,6 @@ public class CoAPService extends CoapServer {
         @Override
         public void handlePOST(CoapExchange exchange) {
             float temp = 0;
-            Vertx vertx = Vertx.vertx();
-            WebClient client = WebClient.create(vertx);
             String msg = exchange.getRequestText();
             //Service Properties
             String service_hostname = PropertiesReader.getValue("SERVICE_HOSTNAME");
