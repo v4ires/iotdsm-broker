@@ -32,13 +32,14 @@ public class CoAPService extends CoapServer {
 
     private static final Logger log = LoggerFactory.getLogger(CoapServer.class);
     private static final int COAP_PORT = NetworkConfig.getStandard().getInt(NetworkConfig.Keys.COAP_PORT);
+    private static Vertx vertx = Vertx.vertx();
+    private static WebClient client = WebClient.create(vertx);
 
     public static void run() {
         try {
             CoAPService server = new CoAPService();
             server.addEndpoints();
             server.start();
-
         } catch (SocketException e) {
             log.error("Failed to initialize server: " + e.getMessage());
         }
@@ -70,8 +71,6 @@ public class CoAPService extends CoapServer {
         @Override
         public void handlePOST(CoapExchange exchange) {
             float temp = 0;
-            Vertx vertx = Vertx.vertx();
-            WebClient client = WebClient.create(vertx);
             String msg = exchange.getRequestText();
             //Service Properties
             String service_hostname = PropertiesReader.getValue("SERVICE_HOSTNAME");
@@ -84,23 +83,12 @@ public class CoAPService extends CoapServer {
             //exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
             //exchange.respond(CoAP.ResponseCode.CONTENT, "Alo");
             client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
-                if (ar.succeeded()) {
-                    log.info("MSG CoAP: OK");
-                }else{
-                    log.info("Errow");
-                }
+//                if (ar.succeeded()) {
+//                    log.info("MSG CoAP: OK");
+//                }else{
+//                    log.info("Errow");
+//                }
             });
-            //temp = Float.parseFloat(msg);
-            //System.out.println(temp);
-
-            /*if(temp > 33){
-                try {
-                    Runtime.getRuntime().exec("/home/pinobex/Tcc/desliga.sh");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }*/
-
         }
     }
 }

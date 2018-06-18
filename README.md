@@ -4,7 +4,7 @@
 
 ## TL;DR
 
-The **I**nternet **o**f **T**hings **D**ata as a **S**ervice **M**odule **B**roker (IoTDSM-B) is a project developed in the Laboratory of Distributed Systems and Concurrent Programming (LaSDPC) of the University of São Paulo (USP). This tool aims to simplify the acquisition and communication of sensor data in the Internet of Things (IoT). For this, this tool supports different communication strategies, such as HTTP, MQQT and CoAP.
+The **I**nternet **o**f **T**hings **D**ata as a **S**ervice **M**odule **B**roker (IoTDSM-B) is a project developed in the Laboratory of Distributed Systems and Concurrent Programming (LaSDPC) of the University of São Paulo (USP). This tool aims to simplify the acquisition and communication of sensor data in the Internet of Things (IoT). For this, this tool supports different communication strategies, such as HTTP, MQTT and CoAP.
 
 ### Installing
 
@@ -71,7 +71,7 @@ In addition, other settings can be defined by means of a configuration file. Thi
 
 |          Variable         |                   Description                |
 |:-------------------------:|:--------------------------------------------:|
-| BROKER_PROTOCOL           | Protocol Type (HTTP, MQQT or COAP)           |
+| BROKER_PROTOCOL           | Protocol Type (HTTP, MQTT or COAP)           |
 | BROKER_HOST               | Broker Host Address                          |
 | BROKER_PORT               | Broker Port Address                          |
 

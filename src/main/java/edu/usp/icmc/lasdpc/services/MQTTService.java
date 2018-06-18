@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory;
  * @author Vinicius A. Barros
  * @author Sergio Baptista
  */
-public class MQQTService {
+public class MQTTService {
 
-    private static final Logger log = LoggerFactory.getLogger(MQQTService.class);
+    private static final Logger log = LoggerFactory.getLogger(MQTTService.class);
 
     public static void run() {
 
@@ -34,44 +34,27 @@ public class MQQTService {
         int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
         String service_path = PropertiesReader.getValue("SERVICE_PATH");
 
-        /*MqttServerOptions options = new MqttServerOptions()
-                .setPort(port)
-                .setHost("localhost");
-                .setHost(host);*/
-
         MqttServer server = MqttServer.create(vertx);
 
         server.endpointHandler(endpoint -> {
             endpoint.publishHandler(message -> {
                 String msg = message.payload().toString();
-                if(message.qosLevel() == MqttQoS.AT_LEAST_ONCE){
-                    endpoint.publishAcknowledge(message.messageId());
-                }
-                else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
-                    endpoint.publishRelease(message.messageId());
-                }
-
                 client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
-                    if (ar.succeeded()) {
-                        if (message.qosLevel() == MqttQoS.AT_LEAST_ONCE) {
-                            endpoint.publishAcknowledge(message.messageId());
-                        } else if (message.qosLevel() == MqttQoS.EXACTLY_ONCE) {
-                            endpoint.publishReceived(message.messageId());
-                        }
-                    }else{
-                        log.info("ERROW");
-                    }
+//                    if (ar.succeeded()) {
+//                       log.info("Foi");
+//                    }else{
+//                        log.info("ERROW");
+//                    }
                 });
             });
             endpoint.accept(true);
         });
         server.listen(ar -> {
-            if (ar.succeeded()) {
-                log.info("MQTT Service Started (" + server.actualPort() + ")");
-
-            } else {
-                log.error("MQTT Service error on start" + ar.cause().getMessage());
-            }
+//            if (ar.succeeded()) {
+//                log.info("MQTT Service Started (" + server.actualPort() + ")");
+//            } else {
+//                log.error("MQTT Service error on start" + ar.cause().getMessage());
+//            }
         });
     }
 
