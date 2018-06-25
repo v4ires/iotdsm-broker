@@ -51,11 +51,11 @@ public class HTTPService {
                     int responseCode = response.statusCode();
                     if (responseCode == 200) {
                         response.bodyHandler(bufferResponse -> {
-                            System.out.println(bufferResponse.toString());
+                            //System.out.println(bufferResponse.toString());
                             webClient.post(service_port,  service_hostname, service_path).sendJson(bufferResponse.toString(), ar ->{
-                                if(ar.succeeded()){
-                                    log.info("HTTP Service: " + responseCode + " Host: " + host[i]);
-                                }
+//                                if(ar.succeeded()){
+//                                    log.info("HTTP Service: " + responseCode + " Host: " + host[i]);
+//                                }
                             });
                         });
                     }
@@ -76,7 +76,7 @@ public class HTTPService {
         int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
         String service_path = PropertiesReader.getValue("SERVICE_PATH");
 
-        log.info("HTTP Service Started (" + broker_port + ")");
+        //log.info("HTTP Service Started (" + broker_port + ")");
 
         Vertx vertx = Vertx.vertx();
         WebClient client = WebClient.create(vertx);
@@ -88,11 +88,11 @@ public class HTTPService {
             int status = ctx.response().getStatusCode();
             String msg = ctx.getBodyAsString();
             client.post(service_port,  service_hostname, service_path).sendJson(msg, ar ->{
-                if(ar.succeeded()){
-                    log.info("HTTP Service: " + status + " Host: " + broker_hostname);
-                }else{
-                    log.info("Errow");
-                }
+//                if(ar.succeeded()){
+//                    log.info("HTTP Service: " + status + " Host: " + broker_hostname);
+//                }else{
+//                    log.info("Errow");
+//                }
                 ctx.response().end();
             });
         });

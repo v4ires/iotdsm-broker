@@ -10,10 +10,7 @@ import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Properties;
@@ -37,37 +34,37 @@ public class HTTPClient {
         String service_path = "/sensor";
 
         client.post(service_port,  service_hostname[host], service_path).sendJson(msg, ar ->{
-            if(ar.succeeded()){
-                log.info("Foi");
-            }else {
-                log.info("Não Foi");
-            }
+//            if(ar.succeeded()){
+//                log.info("Foi");
+//            }else {
+//                log.info("Não Foi");
+//            }
             vertx.close();
         });
     }
 
     public static void main(String[] args) throws IOException {
-        enableLog4J(_logLevel);
+        //enableLog4J(_logLevel);
         String msg = "{\"id\":\"1\",\"name\":\"dht11-0\",\"lat\":\"-22.0039007\",\"lng\":\"-47.891811\",\"name\":\"temperature sensor\",\"create_time\":\"2018-02-12 09:29:05.441\",\"description\":\"the DHT11 is a temperature and humidity sensor\",\"sensor_source\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"descrition\":\"sensor network of temperature and humidity\",\"name\":\"dht11-sensor\"},\"sensor_measure\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"value\":\"36.4\",\"sensor_measure_type\":{\"create_time\":\"2018-02-12 09:29:05.441\",\"unit\":\"C\"}}}";
         int core = Runtime.getRuntime().availableProcessors();
         int host = Integer.parseInt(args[1]);
         ScheduledExecutorService execService = Executors.newScheduledThreadPool(core);
         AtomicInteger atomicInteger = new AtomicInteger(0);
-        BufferedWriter bw = new BufferedWriter(new FileWriter(new File(args[2])));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(args[2]), true), "UTF-8"));
         bw.write(LocalTime.now().toString());
         bw.newLine();
         execService.scheduleAtFixedRate(() -> {
             try {
                 Long t0 = System.nanoTime();
                 run(msg, host);
+                bw.write("" + (System.nanoTime() - t0));
+                bw.newLine();
                 atomicInteger.incrementAndGet();
                 if (atomicInteger.get() > Integer.parseInt(args[0])) {
                     bw.close();
                     System.out.println("Terminou experimento");
                     System.exit(0);
                 }
-                bw.write("" + (System.nanoTime() - t0));
-                bw.newLine();
             } catch (IOException e) {
                 e.printStackTrace();
             }

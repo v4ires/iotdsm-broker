@@ -40,7 +40,6 @@ public class CoAPService extends CoapServer {
             CoAPService server = new CoAPService();
             server.addEndpoints();
             server.start();
-
         } catch (SocketException e) {
             log.error("Failed to initialize server: " + e.getMessage());
         }
@@ -84,23 +83,12 @@ public class CoAPService extends CoapServer {
             //exchange.respond(CoAP.ResponseCode._UNKNOWN_SUCCESS_CODE);
             //exchange.respond(CoAP.ResponseCode.CONTENT, "Alo");
             client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
-                if (ar.succeeded()) {
-                    log.info("MSG CoAP: OK");
-                }else{
-                    log.info("Errow");
-                }
+//                if (ar.succeeded()) {
+//                    log.info("MSG CoAP: OK");
+//                }else{
+//                    log.info("Errow");
+//                }
             });
-            //temp = Float.parseFloat(msg);
-            //System.out.println(temp);
-
-            /*if(temp > 33){
-                try {
-                    Runtime.getRuntime().exec("/home/pinobex/Tcc/desliga.sh");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }*/
-
         }
     }
 }

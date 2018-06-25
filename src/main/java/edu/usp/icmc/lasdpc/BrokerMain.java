@@ -2,7 +2,7 @@ package edu.usp.icmc.lasdpc;
 
 import edu.usp.icmc.lasdpc.services.CoAPService;
 import edu.usp.icmc.lasdpc.services.HTTPService;
-import edu.usp.icmc.lasdpc.services.MQQTService;
+import edu.usp.icmc.lasdpc.services.MQTTService;
 import edu.usp.icmc.lasdpc.util.PropertiesReader;
 import org.apache.commons.cli.*;
 import org.apache.log4j.Level;
@@ -45,14 +45,14 @@ public class BrokerMain {
                 new HTTPService().runHttpServer();
                 break;
             case "MQTT":
-                new MQQTService().run();
+                new MQTTService().run();
                 break;
             case "COAP":
                 new CoAPService().run();
                 break;
             case "ALL":
                 new HTTPService().runHttpServer();
-                new MQQTService().run();
+                new MQTTService().run();
                 new CoAPService().run();
                 break;
             default:
