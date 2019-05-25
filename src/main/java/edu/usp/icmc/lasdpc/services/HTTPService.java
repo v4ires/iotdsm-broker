@@ -1,9 +1,12 @@
 package edu.usp.icmc.lasdpc.services;
 
 import edu.usp.icmc.lasdpc.util.PropertiesReader;
+import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.client.HttpRequest;
 import io.vertx.ext.web.client.WebClient;
 import io.vertx.ext.web.handler.BodyHandler;
 import org.slf4j.Logger;
@@ -38,12 +41,23 @@ public class HTTPService {
         router.route().handler(BodyHandler.create());
 
         router.post(broker_url).handler(ctx -> {
+            MultiMap headers = ctx.request().headers();
+            headers.set("Content-Type", "application/json");
+
+            String token = ctx.request().getHeader("Authorization");
+            if (!token.isEmpty()) {
+                headers.set("Authorization", token);
+            }
+
             String payload = ctx.getBodyAsString();
-            client.post(service_port,  service_hostname, service_path).sendJson(payload, ar ->{
-                if(ar.succeeded()){
+            HttpRequest<Buffer> request = client.post(service_port, service_hostname, service_path);
+
+            request.sendJson(payload, response -> {
+                if(response.succeeded()){
                     log.info("Request executed successful.");
-                }else{
+                } else {
                     log.info("Request executed with error.");
+                    ctx.response().setStatusCode(500);
                 }
                 ctx.response().end();
             });
