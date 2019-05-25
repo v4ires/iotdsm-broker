@@ -11,7 +11,9 @@ import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,7 +44,7 @@ public class BrokerMain {
         String brokerProtocol = PropertiesReader.getValue("BROKER_PROTOCOL");
         switch (brokerProtocol) {
             case "HTTP":
-                new HTTPService().runHttpServer();
+                new HTTPService().run();
                 break;
             case "MQTT":
                 new MQTTService().run();
@@ -51,13 +53,17 @@ public class BrokerMain {
                 new CoAPService().run();
                 break;
             case "ALL":
-                new HTTPService().runHttpServer();
-                new MQTTService().run();
-                new CoAPService().run();
+                runAll();
                 break;
             default:
                 log.info("Invalid or unspecified communication protocol.");
         }
+    }
+
+    private static void runAll() throws SocketException {
+        new HTTPService().run();
+        new MQTTService().run();
+        new CoAPService().run();
     }
 
     /**
@@ -127,7 +133,6 @@ public class BrokerMain {
             log.info("--------------------------");
             log.info("Config Properties File");
             log.info("BROKER_PROTOCOL: {}", PropertiesReader.getValue("BROKER_PROTOCOL"));
-            log.info("BROKER_HOSTNAME: {}", PropertiesReader.getValue("BROKER_HOSTNAME"));
             log.info("BROKER_PORT: {}", PropertiesReader.getValue("BROKER_PORT"));
             log.info("--------------------------");
         } else {

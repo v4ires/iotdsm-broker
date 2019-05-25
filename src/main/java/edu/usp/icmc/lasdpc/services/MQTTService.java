@@ -25,10 +25,6 @@ public class MQTTService {
         Vertx vertx = Vertx.vertx();
         WebClient client = WebClient.create(vertx);
 
-        //Broker Properties
-        String host = PropertiesReader.getValue("BROKER_HOSTNAME");
-        int port = Integer.parseInt(PropertiesReader.getValue("BROKER_PORT"));
-
         //Service Properties
         String service_hostname = PropertiesReader.getValue("SERVICE_HOSTNAME");
         int service_port = Integer.parseInt(PropertiesReader.getValue("SERVICE_PORT"));
@@ -40,21 +36,21 @@ public class MQTTService {
             endpoint.publishHandler(message -> {
                 String msg = message.payload().toString();
                 client.post(service_port, service_hostname, service_path).sendJson(msg, ar -> {
-//                    if (ar.succeeded()) {
-//                       log.info("Foi");
-//                    }else{
-//                        log.info("ERROW");
-//                    }
+                    if (ar.succeeded()) {
+                        log.info("Request executed successful.");
+                    }else{
+                        log.info("Request executed with error.");
+                    }
                 });
             });
             endpoint.accept(true);
         });
         server.listen(ar -> {
-//            if (ar.succeeded()) {
-//                log.info("MQTT Service Started (" + server.actualPort() + ")");
-//            } else {
-//                log.error("MQTT Service error on start" + ar.cause().getMessage());
-//            }
+            if (ar.succeeded()) {
+                log.info("MQTT Service Started (" + server.actualPort() + ")");
+            } else {
+                log.error("MQTT Service error on start" + ar.cause().getMessage());
+            }
         });
     }
 
